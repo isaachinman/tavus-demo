@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+state.json
+public/client.js
+public/client.js.map
+.git
+.claude

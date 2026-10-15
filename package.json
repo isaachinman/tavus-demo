@@ -7,13 +7,14 @@
     "node": "24.15.0"
   },
   "scripts": {
-    "build": "bun run build:server && bun run build:client",
+    "build": "bun run build:server && bun run build:client && bun run build:setup",
     "build:client": "esbuild src/client/index.ts --bundle --platform=browser --target=es2022 --format=esm --outfile=public/client.js --sourcemap --log-level=warning",
     "build:server": "esbuild src/server/index.ts --bundle --platform=node --target=node24 --format=esm --packages=external --outfile=dist/server.mjs --sourcemap --log-level=warning",
-    "dev": "bun run build && (bun run build:server -- --watch=forever & bun run build:client -- --watch=forever & node --env-file=.env --enable-source-maps --watch dist/server.mjs)",
+    "dev": "bun run build && (bun run build:server -- --watch=forever & bun run build:client -- --watch=forever & node --env-file-if-exists=.env --enable-source-maps --watch dist/server.mjs)",
     "lint": "biome check . --error-on-warnings",
-    "setup": "esbuild scripts/setup.ts --bundle --platform=node --target=node24 --format=esm --packages=external --outfile=dist/setup.mjs --log-level=warning && node --env-file=.env --enable-source-maps dist/setup.mjs",
-    "start": "bun run build && node --env-file=.env --enable-source-maps dist/server.mjs",
+    "build:setup": "esbuild scripts/setup.ts --bundle --platform=node --target=node24 --format=esm --packages=external --outfile=dist/setup.mjs --log-level=warning",
+    "setup": "bun run build:setup && node --env-file-if-exists=.env --enable-source-maps dist/setup.mjs",
+    "start": "bun run build && node --env-file-if-exists=.env --enable-source-maps dist/server.mjs",
     "typecheck": "tsc -noEmit"
   },
   "dependencies": {
