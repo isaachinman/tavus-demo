@@ -1,0 +1,1 @@
+export { emailFeed } from './emailFeed'

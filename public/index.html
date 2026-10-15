@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ivy · Tavus × AgentMail</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/client.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand__name">Ivy</span>
+        <span class="brand__tagline">a Tavus PAL with an AgentMail inbox</span>
+      </div>
+      <div class="pills">
+        <span class="pill"
+          >Inbox <strong id="pal-email">…</strong></span
+        >
+        <span class="pill"
+          >AgentMail <span id="socket-state" class="state" data-state="connecting">connecting</span></span
+        >
+        <span class="pill"
+          >Call <span id="call-state" class="state" data-state="idle">idle</span></span
+        >
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="stage">
+        <div id="call" class="call" data-state="idle">
+          <p class="call__placeholder">Start a call to talk to Ivy about your inbox.</p>
+        </div>
+
+        <div class="controls">
+          <button id="start" class="button button--primary" type="button">Start call</button>
+          <button id="end" class="button" type="button" hidden>End call</button>
+          <fieldset class="mode">
+            <legend>New email</legend>
+            <label>
+              <input type="radio" name="mode" value="announce" checked>
+              Announce
+            </label>
+            <label>
+              <input id="mode-silent" type="radio" name="mode" value="silent">
+              Silent context
+            </label>
+          </fieldset>
+        </div>
+
+        <form id="test-email" class="card compose">
+          <div class="card__title">
+            Send a test email to Ivy <span class="muted">from Sam Rivera (tester inbox)</span>
+          </div>
+          <input id="test-subject" name="subject" type="text" placeholder="Subject" required>
+          <textarea id="test-text" name="text" rows="4" placeholder="Body" required></textarea>
+          <button class="button" type="submit">Send test email</button>
+        </form>
+      </section>
+
+      <aside class="panel">
+        <section class="card">
+          <div class="card__title">Background tasks</div>
+          <ol id="tasks" class="tasks"></ol>
+        </section>
+        <section class="card card--grow">
+          <div class="card__title">Event log</div>
+          <ol id="log" class="log"></ol>
+        </section>
+      </aside>
+    </main>
+  </body>
+</html>

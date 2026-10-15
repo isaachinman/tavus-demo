@@ -1,0 +1,19 @@
+# Dependencies
+node_modules
+
+# Environment
+.env
+
+# TypeScript
+*.tsbuildinfo
+
+# Build
+dist
+public/client.js
+public/client.js.map
+
+# Setup output
+state.json
+
+# Local tooling
+.claude
