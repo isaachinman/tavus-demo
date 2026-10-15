@@ -56,6 +56,10 @@ bun run start
 
 `bun run dev` rebuilds and restarts on change. `bun run lint` and `bun run typecheck` must pass before committing.
 
+## Deploy
+
+The Railway service `tavus-demo` deploys `main` automatically from GitHub. It builds the `Dockerfile`, which runs the idempotent `setup` before starting the server. Its variables are `TAVUS_API_KEY`, `AGENTMAIL_API_KEY` and `DEMO_PASSWORD`. When `DEMO_PASSWORD` is set, every route sits behind basic auth (user `ivy`). Startup fails if either API key is missing.
+
 ## Demo script (about 3 minutes)
 
 1. Click **Start call**. Ask: *"What's in my inbox?"* The side panel shows the background task running, then `done` with its duration. Ivy summarises the seeded mail.
