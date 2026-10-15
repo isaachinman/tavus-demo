@@ -58,7 +58,7 @@ bun run start
 
 ## Deploy
 
-The Railway service `tavus-demo` deploys `main` automatically from GitHub. It builds the `Dockerfile`, which runs the idempotent `setup` before starting the server. Its variables are `TAVUS_API_KEY`, `AGENTMAIL_API_KEY` and `DEMO_PASSWORD`. When `DEMO_PASSWORD` is set, every route sits behind basic auth (user `ivy`). Startup fails if either API key is missing.
+The Railway service `tavus-demo` deploys `main` automatically from GitHub. It builds the `Dockerfile`, which runs the idempotent `setup` before starting the server. Its variables are `TAVUS_API_KEY` and `AGENTMAIL_API_KEY`. Startup fails if either is missing.
 
 ## Demo script (about 3 minutes)
 
@@ -78,6 +78,6 @@ The Railway service `tavus-demo` deploys `main` automatically from GitHub. It bu
 - **Announcements need this page in the call.** Tavus interactions travel over the Daily data channel, and I found no REST equivalent. With no browser joined, nothing is announced.
 - **Notices count as user turns.** `conversation.respond` counts as user speech, so notices appear in the transcript as the user. A notice that lands while the user is talking can collide with their turn.
 - **Calls are billed from creation.** Calls are capped at 10 minutes, end 60 s after creation if nobody joins, and end 10 s after you leave. The page also ends the call on **End call**, on Daily's leave button and on tab close (`sendBeacon`).
-- Deduplication is in memory, the server has no auth (localhost only), and AgentMail's free plan appends a "Sent via AgentMail" footer to outgoing mail.
+- Deduplication is in memory, the page has no auth by design, so anyone with the URL can start a billed call or send mail from the tester inbox, and AgentMail's free plan appends a "Sent via AgentMail" footer to outgoing mail.
 
 See [FRICTION.md](FRICTION.md) for the API and docs issues hit while building this.

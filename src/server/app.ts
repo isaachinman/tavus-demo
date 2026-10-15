@@ -1,13 +1,10 @@
 import { serveStatic } from '@hono/node-server/serve-static'
 import { AgentMailError } from 'agentmail'
-import type { Context, MiddlewareHandler } from 'hono'
+import type { Context } from 'hono'
 import { Hono } from 'hono'
-import { basicAuth } from 'hono/basic-auth'
-import { HTTPException } from 'hono/http-exception'
 import type { ContentfulStatusCode } from 'hono/utils/http-status'
 import * as v from 'valibot'
 
-import { config } from '@tavus-demo/config'
 import { TavusError } from '@tavus-demo/lib/tavus'
 import { getLogger } from '@tavus-demo/utils/logger'
 import type { State } from '@tavus-demo/utils/state'
@@ -43,22 +40,11 @@ const errorResponse = (error: Error, c: Context) => {
   return c.json({ error: error.message }, errorStatus(error))
 }
 
-const passThrough: MiddlewareHandler = (_c, next) => next()
-
-const auth = config.demoPassword
-  ? basicAuth({
-      password: config.demoPassword,
-      username: 'ivy',
-    })
-  : passThrough
-
 export const createApp = (appState: State) =>
   new Hono()
-    .use('*', auth)
     .route('/api/conversations', conversationRoutes(appState))
     .route('/api/events', eventRoutes)
     .route('/api/info', infoRoutes(appState))
     .route('/api/test-email', testEmailRoutes(appState))
     .use('/*', serveStatic({ root: './public' }))
-    // HTTPException carries its own response, e.g. basic auth's 401 with WWW-Authenticate.
-    .onError((error, c) => (error instanceof HTTPException ? error.getResponse() : errorResponse(error, c)))
+    .onError(errorResponse)
