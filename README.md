@@ -27,7 +27,7 @@ A small proof of concept. Ivy is a real-time Tavus video agent (PAL) that owns a
 
 ## Setup
 
-Requires [mise](https://mise.jdx.dev) (Node 24.15.0 and Bun 1.3.1 from `.tool-versions`). Then:
+Requires [mise](https://mise.jdx.dev) (Node 24.22.1 and Bun 1.4.4 from `.tool-versions`). Then:
 
 ```bash
 bun install

@@ -1,11 +1,11 @@
-FROM oven/bun:1.3.1 AS build
+FROM oven/bun:1.4.4 AS build
 WORKDIR /app
 COPY package.json bun.lock bunfig.toml ./
 RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-FROM node:24.15.0-slim
+FROM node:24.22.1-slim
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=build /app/package.json ./
